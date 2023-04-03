@@ -1,0 +1,12 @@
+#!/bin/bash
+
+
+install_xsh ()
+{
+  git clone https://github.com/sgleizes/xsh ~/.config/xsh
+  . "${XSH_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/xsh}/xsh.sh"
+}
+
+
+echo "Executing debootstraping !"
+install_xsh
