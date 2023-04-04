@@ -34,7 +34,6 @@ xsh_install_idmgr_git ()
   local dest_git="$HOME/.local/shell/idmgr"
   local dest_bin="$HOME/.local/bin/idmgr"
 
-  set -x
   mkdir -p "$dest_git"
   git_clone_pull "$dest_git"  "$repo"
   mkdir -p "$HOME/.config/xsh"

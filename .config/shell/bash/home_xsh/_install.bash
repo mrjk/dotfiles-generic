@@ -34,7 +34,7 @@ install_xsh_dev ()
   if [[ "${XSH_LVL}" -eq 1 ]] ; then
 
     local repo="https://github.com/mrjk/xsh"
-    local dest_git="$HOME/.local/lib/xsh"
+    local dest_git="$HOME/.local/shell/xsh"
     local dest_bin="$HOME/.config/xsh/xsh.sh"
     local dest_data="$HOME/.config/xsh/runcom"
 

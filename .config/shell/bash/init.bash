@@ -19,10 +19,11 @@ xsh module core_path # require xdg
 xsh module ps1 
 
 # Home Management tools
-xsh module app_xsh $_XSH_RUNCOM_APP
-xsh module app_yadm $_XSH_RUNCOM_APP
-xsh module app_idmgr $_XSH_RUNCOM_APP
+xsh module home_xsh $_XSH_RUNCOM_APP
+xsh module home_yadm $_XSH_RUNCOM_APP
+xsh module home_idmgr $_XSH_RUNCOM_APP
 
+xsh module app_direnv $_XSH_RUNCOM_APP
 
 # Load jez modules
 case "${SUDO_USER:-$USER}" in 
