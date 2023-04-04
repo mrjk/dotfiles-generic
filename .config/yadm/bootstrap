@@ -32,7 +32,6 @@ install_xsh_dev ()
 {
 
   local repo="https://github.com/sgleizes/xsh"
-  #local dest_git="$HOME/.config/xsh"
   local dest_git="$HOME/.local/shell/xsh"
   local dest_bin="$HOME/.config/xsh"
 
@@ -40,7 +39,13 @@ install_xsh_dev ()
   create_symlink "$dest_git" "$dest_bin"
 
   . "${XSH_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/xsh}/xsh.sh"
-  xsh bootstrap
+  local shell=posix
+  if command -v bash >&/dev/null; then
+    shell=bash
+  elif command -v zsh >&/dev/null; then
+    shell=zsh
+  fi
+  xsh -s $shell bootstrap 
 }
 
 install_yadm_dist ()
@@ -58,9 +63,9 @@ install_yadm_dev ()
   ln -s "$dest_git/yadm" "$dest_bin"
 }
 
-ensure_dirs ()
+prepare_install ()
 {
-  mkdir -p $HOME/.local/{share,bin}
+  mkdir -p $HOME/.local/{share,bin,lib}
   export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
   # XDG paths:
@@ -73,10 +78,12 @@ ensure_dirs ()
 }
 
 echo "Executing debootstraping !"
-ensure_dirs
+prepare_install
 
 #command -v yadm >&/dev/null \
 install_yadm_dist
-
-#install_ellipsis
 install_xsh_dev
+#install_ellipsis
+
+>&2 echo "INFO: Home correctly installed. Please start new instance of your shell: $SHELL"
+
