@@ -168,7 +168,8 @@ shell_ps1_advanced () {
   fi
 
   # Add git prompt support
-  local PS1_GIT="\$(__git_ps1 '(%s) ' 2>/dev/null )"
+  #local PS1_GIT="\$(__git_ps1 '(%s) ' 2>/dev/null )"
+  local PS1_GIT=""
 
   # Set the prompt depending the shell
   case "${@:-${SHELL##*/}}" in

@@ -1,0 +1,6 @@
+poetry==1.2.2
+httpie
+sshuttle
+virtualenv
+ansible
+paasify
