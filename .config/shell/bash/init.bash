@@ -20,11 +20,12 @@ case "$USER" in
 esac
 
 # Load jez modules
+xsh module ps1 
 case "${SUDO_USER:-$USER}" in 
   jez)
     xsh module jez
-    xsh module ps1 
     ;;
 esac
 
 #unset ${!_XSH_*}
+
