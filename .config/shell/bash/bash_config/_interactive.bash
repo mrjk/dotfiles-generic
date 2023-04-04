@@ -32,13 +32,22 @@ fi
 export HISTTIMEFORMAT='%F %T '
 export HISTCONTROL=""
 
-## Define dircolors for darwin
-#if dot::os::mac ; then
-#  export CLICOLOR=1
-#  export LSCOLORS=GxFxCxDxBxegedabagaced
-#fi
+# Define pager for linux
+if command -v less >&/dev/null ; then
+  export MANPAGER=less
+fi
 #
-## Define pager for linux
-#if dot::os::linux ; then
-#  export MANPAGER=less
-#fi
+
+# OSX non-compatibility
+if [[ ! "$OSTYPE" =~ darwin* ]]; then
+	shopt -s autocd               # Enable changing directory without cd
+	shopt -s dirspell             # Spelling correction for dirs
+	shopt -s globstar             # ZSH-like ** globbing (recursive dir match)
+	shopt -s checkjobs
+
+else
+  # Define dircolors for darwin
+  export CLICOLOR=1
+  export LSCOLORS=GxFxCxDxBxegedabagaced
+fi
+

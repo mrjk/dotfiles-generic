@@ -31,6 +31,7 @@ install_xsh_dev ()
 {
 
   export XSH_LVL=$(( ${XSH_LVL:-0} + 1 ))
+
   if [[ "${XSH_LVL}" -eq 1 ]] ; then
 
     local repo="https://github.com/mrjk/xsh"
@@ -74,3 +75,4 @@ install_xsh_dev ()
 install_xsh_dev
 
 >&2 echo "Xsh has been installed"
+
