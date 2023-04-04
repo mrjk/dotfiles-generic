@@ -16,14 +16,17 @@ _XSH_RUNCOM_APP=env:login:interactive:logout:install
 xsh module core $_XSH_RUNCOM_APP
 xsh module core_xdg 
 xsh module core_path # require xdg
-xsh module ps1 
+xsh module core_ps1 
 
 # Home Management tools
 xsh module home_xsh $_XSH_RUNCOM_APP
 xsh module home_yadm $_XSH_RUNCOM_APP
 xsh module home_idmgr $_XSH_RUNCOM_APP
 
+# Other apps
 xsh module app_direnv $_XSH_RUNCOM_APP
+xsh module app_asdf $_XSH_RUNCOM_APP
+
 
 # Load jez modules
 case "${SUDO_USER:-$USER}" in 

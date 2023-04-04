@@ -36,7 +36,6 @@ xsh__install_direnv_dist ()
   fi
   echo "release=$release"
 
-  set -x
   download_url=$(
     curl -fL "https://api.github.com/repos/direnv/direnv/releases/$release" \
     | grep browser_download_url \
