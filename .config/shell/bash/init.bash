@@ -19,13 +19,19 @@ xsh module core_path # require xdg
 xsh module core_ps1 
 
 # Home Management tools
+xsh module home_ssh_agent $_XSH_RUNCOM_APP
 xsh module home_xsh $_XSH_RUNCOM_APP
 xsh module home_yadm $_XSH_RUNCOM_APP
-xsh module home_idmgr $_XSH_RUNCOM_APP
+#xsh module home_idmgr $_XSH_RUNCOM_APP
+
+
+# Plugin managers
+#xsh module home_ellipsis $_XSH_RUNCOM_APP
+xsh module home_basher $_XSH_RUNCOM_APP
 
 # Other apps
-xsh module app_direnv $_XSH_RUNCOM_APP
-xsh module app_asdf $_XSH_RUNCOM_APP
+#xsh module app_direnv $_XSH_RUNCOM_APP
+#xsh module app_asdf $_XSH_RUNCOM_APP
 
 
 # Load jez modules
