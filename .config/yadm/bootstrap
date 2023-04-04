@@ -1,9 +1,44 @@
 #!/bin/bash
+#
+## Test bootstrap:
+# /upstream/dotfiles-generic/.config/yadm/bootstrap
+#
 
 
-install_xsh ()
+git_clone_pull ()
 {
-  git clone https://github.com/sgleizes/xsh ~/.config/xsh
+  local dest=$1
+  local repo=$2
+
+  if [ -d "$dest" ]; then
+    git -C "$dest" pull
+  else
+    git clone "$repo" "$dest"
+  fi
+}
+
+create_symlink ()
+{
+  local src=$1
+  local dest=$2
+
+  if [ ! -L "$dest" ]; then
+    ln -s "$src" "$dest"
+  fi
+}
+
+
+install_xsh_dev ()
+{
+
+  local repo="https://github.com/sgleizes/xsh"
+  #local dest_git="$HOME/.config/xsh"
+  local dest_git="$HOME/.local/shell/xsh"
+  local dest_bin="$HOME/.config/xsh"
+
+  git_clone_pull "$dest_git"  "$repo"
+  create_symlink "$dest_git" "$dest_bin"
+
   . "${XSH_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/xsh}/xsh.sh"
   xsh bootstrap
 }
@@ -26,10 +61,22 @@ install_yadm_dev ()
 ensure_dirs ()
 {
   mkdir -p $HOME/.local/{share,bin}
+  export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+
+  # XDG paths:
+  # $HOME/.config # $XDG_CONFIG_HOME
+  # $HOME/.local/share # $XDG_DATA_HOME
+  # PATH+ =  $HOME/.local/bin
+  # $HOME/.local/state  # $XDG_STATE_HOME
+  # $HOME/.cache # $XDG_CACHE_HOME
+  # # Optonal: /run/user/1000 # $XDG_RUNTIME_DIR
 }
 
 echo "Executing debootstraping !"
 ensure_dirs
-install_yadm
+
+#command -v yadm >&/dev/null \
+install_yadm_dist
+
 #install_ellipsis
-#install_xsh
+install_xsh_dev
