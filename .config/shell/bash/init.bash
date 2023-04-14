@@ -19,8 +19,9 @@ xsh__load ()
   local hostname=$(hostname)
 
   # Lookup for user files
-  files1=$( ls -1 $HOME/.config/shell/bash/init_${hostname}.bash )
-  files2=$( ls -1 $HOME/.config/shell/bash/init_${user}.bash )
+  files=$( ls -1 $HOME/.config/shell/bash/init__*.bash 2>/dev/null)
+  files1=$( ls -1 $HOME/.config/shell/bash/init_${hostname}.bash 2>/dev/null)
+  files2=$( ls -1 $HOME/.config/shell/bash/init_${user}.bash 2>/dev/null)
   for file in $files $files1 $files2; do
     . $file
   done
