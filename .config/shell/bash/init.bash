@@ -13,6 +13,7 @@ _XSH_RUNCOM_APP=env:login:interactive:logout:install
 
 
 # Base shell environment
+# ============================
 xsh module core $_XSH_RUNCOM_APP
 xsh module core_xdg 
 xsh module core_path # require xdg
@@ -20,32 +21,57 @@ xsh module core_ps1
 xsh module core_tty 
 xsh module core_tmout 
 
+
 # Home Management tools
-xsh module home_ssh_agent $_XSH_RUNCOM_APP
+# ============================
 xsh module home_xsh $_XSH_RUNCOM_APP
 xsh module home_yadm $_XSH_RUNCOM_APP
 #xsh module home_idmgr $_XSH_RUNCOM_APP
 
-# Lang managers
-xsh module lang_go $_XSH_RUNCOM_APP
-xsh module lang_python $_XSH_RUNCOM_APP
 
-# Plugin managerspip_cmd
-#xsh module home_ellipsis $_XSH_RUNCOM_APP
-xsh module home_basher $_XSH_RUNCOM_APP
+# Load generic modules
+# ============================
+xsh module core_user
+_xsh__user=$(id -u -n)
+xsh module user_${_xsh__user} >&/dev/null || true
 
-# Linux distro support
-# xsh module linux_archlinux $_XSH_RUNCOM_APP
+#case "$(id -u -n)" in 
+#  root)
+#    xsh module user_root
+#    ;;
+#esac
 
-# Other apps
-#xsh module app_direnv $_XSH_RUNCOM_APP
-#xsh module app_asdf $_XSH_RUNCOM_APP
 
 # Linux apps
+# ============================
+xsh module app_ssh_agent $_XSH_RUNCOM_APP
 xsh module app_vim $_XSH_RUNCOM_APP
 xsh module app_git $_XSH_RUNCOM_APP
 xsh module app_less $_XSH_RUNCOM_APP
-#xsh module app_tree $_XSH_RUNCOM_APP
+xsh module app_tree $_XSH_RUNCOM_APP
+
+
+# Lang managers
+# ============================
+xsh module lang_go $_XSH_RUNCOM_APP
+xsh module lang_python $_XSH_RUNCOM_APP
+
+
+# Plugin managers
+# ============================
+xsh module home_basher $_XSH_RUNCOM_APP
+#xsh module home_ellipsis $_XSH_RUNCOM_APP
+#xsh module app_asdf $_XSH_RUNCOM_APP
+
+
+# Other apps
+# ============================
+#xsh module app_direnv $_XSH_RUNCOM_APP
+
+
+# Linux distro support
+# ============================
+# xsh module linux_archlinux $_XSH_RUNCOM_APP
 
 # Load jez modules
 case "${SUDO_USER:-$USER}" in 
@@ -62,10 +88,3 @@ esac
 # user_work      # If explicit
 # user_desktop   # if has a xorg instance
 
-# Load generic modules
-xsh module user
-case "$USER" in 
-  root)
-    xsh module user_root
-    ;;
-esac
