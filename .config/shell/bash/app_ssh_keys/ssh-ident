@@ -1,0 +1,93 @@
+#!/bin/bash
+
+set -eu
+
+# SSHKEY_IDENT=rcordier SSHKEY_DIR=$PWD SSHKEY_TYPES=rsa4096 /home/jez/prj/mrjk/POC/home-generic/code/dotfiles-generic/.config/shell/bash/app_ssh_keys/ssh-ident
+
+
+usage ()
+{
+  cat <<EOF
+Command line to generate ssh keypairs in an importent way.
+
+Usage: ${0##*/} [CONFIG_FILE]
+
+Config:
+  The cmd file must be a valide shell files with the following
+  variables cmdured:
+  SSHKEY_HOST="localhost"
+  SSHKEY_IDENT="login"
+  SSHKEY_TYPES="rsa4096 ed25519"
+
+Infos:
+  Version: 0.2 alpha
+EOF
+}
+
+main ()
+{
+  local cmd=${1-}
+
+  # Check parameters
+  if ! [[ -f "$cmd" ]]; then
+    case "$cmd" in
+      help|--help|-h)
+        usage
+        return 0
+        ;;
+    esac
+  fi
+
+  # Get config
+  SSHKEY_ALL_TYPES="ed25519, rsa4092, rsa2048, ecdsa521"
+  SSHKEY_DIR=${SSHKEY_DIR:-$HOME/.ssh}
+  SSHKEY_IDENT=${SSHKEY_IDENT:-$(id -u -n)}
+  SSHKEY_HOST=${SSHKEY_HOST:-$(hostname -f)}
+  SSHKEY_TYPES="${SSHKEY_TYPES:-ed25519}"
+
+
+  # Prepare environment
+  echo "INFO: Creating keys ..."
+  local key_pass=""
+  local key_vers="$(date +'%Y%m%d')"
+
+  # Generate keys
+  for key_type in $SSHKEY_TYPES; do
+    local key_dest="${SSHKEY_IDENT}_${key_type}"
+    local key_comment="${SSHKEY_IDENT}@${SSHKEY_HOST}:${key_type}"
+
+    if find "$SSHKEY_DIR" -maxdepth 1 -type f -name "${key_dest}_*" 2>/dev/null | grep -q . ; then
+      >&2 echo "INFO: Key already present: ${key_dest}"
+    else
+      if [[ "$key_type" == "ed25519" ]]; then
+          ssh-keygen -f "${SSHKEY_DIR}/${key_dest}_${key_vers}" \
+            -t $key_type -a 100 \
+            -C "${key_comment}_${key_vers}" \
+            -N "$key_pass" # DISABLE password
+        elif [[ "$key_type" =~ ^(rsa|edsa).* ]]; then
+          #rsa4096
+          #rsa2048
+          #rsa1024
+          #ecdsa521
+          #ecdsa384
+          #ecdsa256
+          local key_alg=${key_type%%[0-9]*}
+          local key_size=${key_type#$key_alg}
+          [[ -n "$key_size" ]] || {
+              >&2 echo "ERROR: Unsupported key size '$key_size' for type '$key_type', please choose one of: $SSHKEY_ALL_TYPES"
+              continue
+              return 1
+            }
+          ssh-keygen -f "${SSHKEY_DIR}/${key_dest}_${key_vers}" \
+            -t $key_alg -b $key_size \
+            -C "${key_comment}_${key_vers}" \
+            -N "$key_pass" # DISABLE password
+        else
+          >&2 echo "ERROR: Unsupported key type '$key_type', please choose one of: $SSHKEY_ALL_TYPES"
+      fi
+    fi
+  done
+}
+
+main $@
+

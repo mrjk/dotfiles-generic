@@ -1,0 +1,56 @@
+" Exemple: https://github.com/dflemstr/vim-config/blob/master/vimrc
+
+
+" Vim sane tabs
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+
+"set nu
+set mouse=
+"set ttymouse=
+
+
+" noremap <Up> <Nop>
+" noremap <Down> <Nop>
+" noremap <Left> <Nop>
+" noremap <Right> <Nop>
+
+
+
+" " Always display the filename in status bar
+" " set laststatus=2
+" 
+" Disable old vi behavior
+set nocompatible
+
+" Vim sane tabs
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set autoindent
+set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
+
+" Syntax coloration and numbering
+filetype plugin indent on   " Automatically detect file types.
+syntax enable
+set nu
+
+" Search
+set hlsearch      " highlight search terms
+set scrolloff=3                 " minimum lines to keep above and below cursor
+
+" history
+set history=1000  " Store a ton of history (default is 20)
+
+" Remap leader key
+let mapleader = ","
+
+" Fix auto-indentation for YAML files
+augroup yaml_fix
+    autocmd!
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab indentkeys-=0# indentkeys-=<:>
+augroup END
+
