@@ -1,0 +1,56 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task --list
+    silent: true
+
+  tree:
+    desc: Show mani project tree
+    silent: true
+    cmds:
+      - mani list project --tree
+      - mani list tags
+      - mani list tasks
+
+  list:
+    desc: List remote repos
+    silent: true
+    cmds:
+      - task: gh_list
+      - task: gt_list
+
+  gh_list:
+    desc: list github repos
+    silent: true
+    cmds:
+      - 'echo "Github repositories: $GH_REPO"'
+      - gh repo list --limit 200 $GH_REPO
+
+  gt_list:
+    desc: list github repos
+    silent: true
+    status:
+      - test -z "$GITEA_LOGIN"
+    cmds:
+      - 'echo "Gitea repositories: $GITEA_LOGIN"'
+      - tea repo list --login $GITEA_LOGIN --limit 200
+
+
+
+#  fg_list:
+#    desc: list framagit repos
+#    silent: true
+#    cmds:
+#      - echo "Framagit repositories:"
+#      - tea repo list --login $GITEA_LOGIN --limit 200
+#
+#  gl_list:
+#    desc: list gitlab repos
+#    silent: true
+#    cmds:
+#      - echo "Gitlab repositories:"
+#      - tea repo list --login $GITEA_LOGIN --limit 200

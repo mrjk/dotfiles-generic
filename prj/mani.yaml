@@ -1,0 +1,17 @@
+projects:
+  prj:
+    path: .
+  
+  jez:
+    url: git@git.jeznet.org:jez-dot/workspace-jez.git
+  
+  mrjk:
+    url: git@git.jeznet.org:jez-dot/workspace-mrjk.git
+  
+  barbu:
+    url: git@git.barbu-it:rcordier/workspace.git
+  
+tasks:
+  hello:
+    desc: Print Hello World
+    cmd: echo "Hello World"
