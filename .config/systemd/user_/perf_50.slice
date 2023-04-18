@@ -1,0 +1,6 @@
+[Unit]
+Description=Limited resources Slice 50%/4Gb
+DefaultDependencies=no
+Before=slices.target[Slice]
+CPUQuota=50%
+MemoryLimit=4G
