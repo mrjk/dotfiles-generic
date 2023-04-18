@@ -1,6 +1,12 @@
 #!/bin/bash
 
+
 shell_ps1_advanced () {
+
+  # Get globals
+  local PS1_PREFIX='||\${PS1_PREFIX}||'
+  local PS1_SUFFIX='\>${PS1_SUFFIX}<'
+  #local PS1_OVERRIDE=${PS1_OVERRIDE}
 
   # Define colors
   local RESET="\[\e[0m\]"
@@ -174,7 +180,7 @@ shell_ps1_advanced () {
   # Set the prompt depending the shell
   case "${@:-${SHELL##*/}}" in
     bash)
-      PS1="${RESET}${PS1_RETURN}${PS1_START}${PS1_JOBS}${PS1_USER}${PS1_HOST}${PS1_PATH}${PS1_ACOUNT}${RESET}${PS1_GIT}${PS1_STOP}"
+      PS1="\${PS1_OVERRIDE:-${RESET}\${PS1_RETURN}${PS1_START}\${PS1_PREFIX:+\$PS1_PREFIX }${PS1_JOBS}${PS1_USER}${PS1_HOST}${PS1_PATH}${PS1_ACOUNT}${RESET}${PS1_GIT}\${PS1_SUFFIX:+\${PS1_SUFFIX} }${PS1_STOP}}"
       ;;
     dash)
       PS1='$USER@$HOSTNAME:$PWD\$ '

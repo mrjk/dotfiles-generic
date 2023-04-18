@@ -1,7 +1,8 @@
 
 path_add() {
-    newelement=${1%/}
+    local newelement=${1%/}
     if [ -d "$1" ] && ! echo $PATH | grep -E -q "(^|:)$newelement($|:)" ; then
+        >&2 echo "xsh: Add to PATH: $1"
         if [ "$2" = "after" ] ; then
             PATH="$PATH:$newelement"
         else

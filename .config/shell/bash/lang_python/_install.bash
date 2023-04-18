@@ -14,8 +14,9 @@ if [[ -z "$pip_cmd" ]]; then
 fi
 
 
-_xsh__python_groups=${_xsh__python_groups:-default}
-for patt in $_xsh__python_groups; do
+# Comma separated values
+_xsh__python_tags=${_xsh__python_tags:-default}
+for patt in ${_xsh__python_tags//,/ }; do
   f="$HOME/.config/shell/python/requirements.$patt.txt"
   if [[ -f "$f" ]]; then
     >&2 echo "Install pip requirements"

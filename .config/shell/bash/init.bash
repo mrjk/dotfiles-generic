@@ -23,6 +23,7 @@ xsh__load ()
   files1=$( ls -1 $HOME/.config/shell/bash/init_${hostname}.bash 2>/dev/null)
   files2=$( ls -1 $HOME/.config/shell/bash/init_${user}.bash 2>/dev/null)
   for file in $files $files1 $files2; do
+    >&2 echo Loading $file ...
     . $file
   done
 

@@ -5,13 +5,11 @@ git_clone_pull ()
   local repo=$2
   local ref=${3:-main}
 
-  if [ -d "$dest/.git" ]; then
-    git -C "$dest" checkout $ref
-    git -C "$dest" pull --ff-only
-  else
+  if [ ! -d "$dest/.git" ]; then
     git clone "$repo" "$dest" 
-    git -C "$dest" checkout $ref
   fi
+
+  git -C "$dest" checkout $ref
 }
 
 create_shim ()
@@ -36,9 +34,10 @@ xsh_install_asdf_git ()
   local dest_git="$HOME/.local/shell/asdf"
   local dest_bin="$HOME/.local/bin/asdf"
 
+  mkdir -p "$HOME/.local/shell/" "$HOME/.local/bin/"
+
   # DISABLE: advice.detachedHead
   git_clone_pull "$dest_git" "$repo" $version
-  mkdir -p "$HOME/.config/xsh"
   create_shim "$dest_git/bin/asdf" "$dest_bin"
 
 }

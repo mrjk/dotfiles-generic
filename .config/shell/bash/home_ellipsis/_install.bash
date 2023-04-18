@@ -32,6 +32,8 @@ xsh_install_ellipsis_git ()
   local dest_git="$HOME/.local/shell/ellipsis"
   local dest_bin="$HOME/.local/bin/ellipsis"
 
+  mkdir -p "$HOME/.local/shell/" "$HOME/.local/bin/"
+
   deps="bash curl git"
   for dep in $deps; do
       hash $dep 2>/dev/null || { echo >&2 "ellipsis requires $dep to be installed."; exit 1; }

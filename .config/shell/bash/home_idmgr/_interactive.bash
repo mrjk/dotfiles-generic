@@ -5,7 +5,7 @@
 
 if command -v idmgr; then
   eval "$( idmgr shell)"
-  alias i=idmgr
+  #alias i=idmgr
   echo "Interactive idmgr loaded"
 fi
 

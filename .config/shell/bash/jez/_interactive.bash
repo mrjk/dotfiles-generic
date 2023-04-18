@@ -4,8 +4,8 @@
 
 echo "Interactive jex loaded"
 
-xsh load jez aliases
-xsh load jez colors
+#xsh load jez aliases
+#xsh load jez colors
 
 # #
 # ## -----------------------------------------------------------------------------

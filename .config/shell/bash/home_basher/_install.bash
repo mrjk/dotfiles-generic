@@ -30,12 +30,13 @@ xsh_install_basher_git ()
 
   local repo="https://github.com/basherpm/basher.git"
   local dest_git="$HOME/.local/shell/basher"
-  local dest_bin="$HOME/.local/bin/basher"
+  local dest_bin="$HOME/.local/bin/"
 
 
   #xsh load home_basher env
+  mkdir -p "$dest_bin" "$HOME/.local/shell/"
   git_clone_pull "$dest_git"  "$repo"
-  create_shim "$dest_git/libexec/basher" "$dest_bin"
+  create_shim "$dest_git/libexec/basher" "$dest_bin/basher"
 
 }
 

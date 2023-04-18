@@ -2,7 +2,7 @@
 
 xsh__install_direnv_dist ()
 {
-  local dest_bin="$HOME/.local/bin/direnv"
+  local dest_dir="$HOME/.local/bin"
 
   local version= #latest
   local kernel= machine= release= download_url=
@@ -43,8 +43,9 @@ xsh__install_direnv_dist ()
     | grep "direnv.$kernel.$machine"
   )
 
-  curl -o "$dest_bin" -fL "$download_url"
-  chmod a+x "$dest_bin"
+  mkdir -p "$dest_dir"
+  curl -o "$dest_dir/direnv" -fL "$download_url"
+  chmod a+x "$dest_dir/direnv"
   set +x
 }
 
